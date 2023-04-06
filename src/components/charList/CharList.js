@@ -11,20 +11,19 @@ import './charList.css';
 
 const CharList = (props) => {
 
-    let [data, setData] = useState([]);
-    let [load, setLoad] = useState(false);
-    let [error, setError] = useState(false);
-    let [next, setNext] = useState(null);
-    let [startOffset, setStartOffset] = useState(210);
-    let [offset, setOffset] = useState(null);
-    let [buttonOff, setButtonOff] = useState(false); 
-    let myRef = useRef(null);
+    const [data, setData] = useState([]);
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState(false);
+    const [next, setNext] = useState(null);
+    const [startOffset, setStartOffset] = useState(210);
+    const [offset, setOffset] = useState(null);
+    const [buttonOff, setButtonOff] = useState(false); 
 
     const serviceMarvel = new ServiceMarvel();
 
     const loadServ = (offset) => {
-        setLoad(load = true);
-        setError(error = false)
+        setLoad(true);
+        setError(false)
         return serviceMarvel.getRequestAllCharacter(offset);
     }
 
@@ -33,25 +32,24 @@ const CharList = (props) => {
         if (res.data.results.length < 9) {
             ended = true;
         }
-        setData(data = [...data, ...res.data.results]);
-        setLoad(load = false);
-        setError(error = false);
-        setNext(next = false);
-        setButtonOff(buttonOff = ended);
+        setData([...data, ...res.data.results]);
+        setLoad(false);
+        setError(false);
+        setNext(false);
+        setButtonOff(ended);
     }
 
     const loadError = (res) => {
-        setLoad(load = false);
-        setError(error = true);
+        setLoad(false);
+        setError(true);
     }
 
     const onNextCharacter = () => {       
-        setOffset(offset = offset + 9);
-        setNext(next = true);
+        setOffset(offset + 9);
+        setNext(true);
     }
 
     const getCharacter = (offset) => {
-        console.log(3);
         loadServ(offset)
         .then(res => loadOk(res))
         .catch(() => loadError())
@@ -60,15 +58,17 @@ const CharList = (props) => {
     useEffect(() => {
         const arrData = JSON.parse(localStorage.getItem("data"));
         if ((localStorage.getItem("offset") && localStorage.getItem("data"))) {
-            setOffset(offset = +localStorage.getItem("offset"));
-            setData(data = arrData.slice(0, arrData.length - 9))
+            setOffset(+localStorage.getItem("offset"));
+            setData(arrData.slice(0, arrData.length - 9))
         } else {
-            setOffset(offset = startOffset)
+            setOffset(startOffset);
         };
     }, [])
 
     useEffect(() => {
-        getCharacter(offset);
+        if (offset) {
+            getCharacter(offset);
+        }
     }, [offset])
 
     useEffect(() => {

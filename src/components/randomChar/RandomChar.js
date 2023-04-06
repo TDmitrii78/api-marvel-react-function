@@ -12,9 +12,9 @@ import mjolnir from '../../resources/img/mjolnir.png';
 
 const RandomChar = (props) => {
 
-    let [character, setCharacter] = useState({});
-    let [load, setLoad] = useState(false);
-    let [error, setError] = useState(false);
+    const [character, setCharacter] = useState({});
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState(false);
 
     const serviceMarvel = new ServiceMarvel();
 
@@ -23,24 +23,23 @@ const RandomChar = (props) => {
     }
 
     const loadServ = (id) => {
-        setLoad(load = true);
-        setError(error = false)
+        setLoad(true);
+        setError(false)
         return serviceMarvel.getRequestCharacter(id)
     }
 
     const loadOk = (res) => {
-        setCharacter(character = res);
-        setLoad(load = false);
-        setError(error = false);
+        setCharacter(res);
+        setLoad(false);
+        setError(false);
     }
 
     const loadError = () => {
-        setError(error = true);
-        setLoad(load = false);
+        setError(true);
+        setLoad(false);
     }
 
     const getCharacter = (id) => {
-        console.log(2);
         loadServ(id)
         .then(res => loadOk(res))
         .catch(() => loadError());

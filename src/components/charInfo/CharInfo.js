@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -12,29 +12,29 @@ import './charInfo.css';
 
 const CharInfo = (props) => {
 
-    let [character, setCharacter] = useState({comics: []});
-    let [load, setLoad] = useState(false);
-    let [error, setError] = useState(false);
-    let [id, setId] = useState(null);
+    const [character, setCharacter] = useState({comics: []});
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState(false);
+    const [id, setId] = useState(null);
 
     const serviceMarvel = new ServiceMarvel();
 
     const loadServ = (id) => {
-        setLoad(load = true);
-        setError(error = false);
-        setId(id = id);
+        setLoad(true);
+        setError(false);
+        setId(id);
         return serviceMarvel.getRequestCharacter(id);
     }
 
     const loadOk = (res) => {
-        setCharacter(character = res);
-        setLoad(load = false);
-        setError(error = false);
+        setCharacter(res);
+        setLoad(false);
+        setError(false);
     }
 
     const loadError = (res) => {
-        setLoad(load = false);
-        setError(error = true);
+        setLoad(false);
+        setError(true);
     }
 
     const getCharacter = (id) => {
@@ -47,7 +47,7 @@ const CharInfo = (props) => {
         if (props.id) {
             getCharacter(props.id);
         }
-        
+
     }, [props.id])
 
     const skeleton = (id) ? null : <Skeleton/>;
