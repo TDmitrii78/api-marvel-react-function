@@ -38,7 +38,6 @@ const CharInfo = (props) => {
     }
 
     const getCharacter = (id) => {
-        console.log("1");
         loadServ(id)
         .then(res => loadOk(res))
         .catch(res => loadError(res));
@@ -107,10 +106,8 @@ const Content = (props) => {
                         return null
                     })
                 }
-
             </ul>
         </>
-
     )
 }
 

@@ -68,12 +68,7 @@ const CharList = (props) => {
     }, [])
 
     useEffect(() => {
-        if (offset !== null) {
-            if (offset !== myRef.current) {
-                getCharacter(offset);
-            }
-            myRef.current = offset;
-        }
+        getCharacter(offset);
     }, [offset])
 
     useEffect(() => {
@@ -103,22 +98,24 @@ const CharList = (props) => {
 
 const Content = (props) => {
 
-    const [selectId, setSelectId] = useState();
-
-    const onClickCharacter = (id) => {
-        setSelectId(id = id)
+    const onClickCharacter = (id, i) => {
         props.onClickCharacter(id);
+        selectEffectCharacter(i);
+    }
+    
+    const myRef = useRef([]);
+
+    const selectEffectCharacter = (i) => {
+        myRef.current.forEach(el => {
+            el.classList.remove('char__item_selected');
+        });
+        myRef.current[i].classList.add('char__item_selected');
     }
 
     const {data, onNextCharacter, next, buttonOff} = props;
-    const character = data.map(el => {
+    const character = data.map((el, i) => {
 
         const characterImg = el.thumbnail.path + '.' + el.thumbnail.extension;
-
-        let className = "char__item";
-        if (selectId === el.id) {
-            className += ` char__item_selected`;
-        }
 
         let imgStyle = {"objectFit": "cover"};  
         if (characterImg === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg") {
@@ -127,11 +124,13 @@ const Content = (props) => {
    
         return (
             <li
-             key={el.id} 
-                className={className}
+                ref={el => myRef.current[i] = el}
+                key={el.id} 
+                className='char__item'
                 tabIndex={"0"}
-                onClick={() => onClickCharacter(el.id)}
-             >
+                onClick={() => {onClickCharacter(el.id, i)}}
+                onKeyDown={(e => (e.key === 'Enter') ? onClickCharacter(el.id, i) : null)}
+            >
                 <img src={characterImg} 
                     style={imgStyle}
                        alt="character foto"/>
@@ -139,6 +138,8 @@ const Content = (props) => {
             </li>
         )
     });
+
+    
 
     return (
         <>
