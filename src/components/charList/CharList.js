@@ -14,7 +14,6 @@ const CharList = (props) => {
     const [data, setData] = useState([]);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState(false);
-    const [next, setNext] = useState(null);
     const [startOffset, setStartOffset] = useState(210);
     const [offset, setOffset] = useState(null);
     const [buttonOff, setButtonOff] = useState(false); 
@@ -35,7 +34,6 @@ const CharList = (props) => {
         setData([...data, ...res.data.results]);
         setLoad(false);
         setError(false);
-        setNext(false);
         setButtonOff(ended);
     }
 
@@ -46,7 +44,6 @@ const CharList = (props) => {
 
     const onNextCharacter = () => {       
         setOffset(offset + 9);
-        setNext(true);
     }
 
     const getCharacter = (offset) => {
@@ -79,13 +76,13 @@ const CharList = (props) => {
 
         const spiner = (load) ? <Spiner/> : null;
         const errorMes = (error) ? <Error/> : null;
-        const content = (!load && !error) || next ? <Content 
-                                                        data={data} 
-                                                        onNextCharacter={onNextCharacter}
-                                                        onClickCharacter={(id) => props.onClickCharacter(id)}
-                                                        next={next}
-                                                        buttonOff={buttonOff}
-                                                    /> : null;
+        const content = true ? <Content 
+                                    load={load}
+                                    data={data} 
+                                    onNextCharacter={onNextCharacter}
+                                    onClickCharacter={(id) => props.onClickCharacter(id)}
+                                    buttonOff={buttonOff}
+                                /> : null;
         return (
             <div className="char__list">
                 {content}
@@ -112,7 +109,7 @@ const Content = (props) => {
         myRef.current[i].classList.add('char__item_selected');
     }
 
-    const {data, onNextCharacter, next, buttonOff} = props;
+    const {data, onNextCharacter, load, buttonOff} = props;
     const character = data.map((el, i) => {
 
         const characterImg = el.thumbnail.path + '.' + el.thumbnail.extension;
@@ -146,7 +143,7 @@ const Content = (props) => {
             <ul className="char__grid">
                 {character}
             </ul>
-            <button style={((next || buttonOff) ? {"display" : "none"} : {"display": "block"})}
+            <button style={((load || buttonOff) ? {"display" : "none"} : {"display": "block"})}
                 onClick={onNextCharacter}
                 className="button button__main button__long">
                 <div className="inner">load more</div>
@@ -163,7 +160,6 @@ Content.propType = {
     data: PropTypes.array,
     onClickCharacter: PropTypes.func,
     onNextCharacter: PropTypes.func,
-    next: PropTypes.bool,
     buttonOff: PropTypes.bool
 }
 
