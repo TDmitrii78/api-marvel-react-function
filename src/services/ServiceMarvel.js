@@ -11,7 +11,7 @@ class ServiceMarvel {
     }
 
     getAllComics = (offset) => {
-        return this.getResourse(`${this._baseApi}/v1/public/comics?limit=8&offset=${offset}&${this._apiKey}`);
+        return this.getResourse(`${this._baseApi}/v1/pub1lic/comics?limit=8&offset=${offset}&${this._apiKey}`);
     }
 
     getRequestAllCharacter = (offset) => {

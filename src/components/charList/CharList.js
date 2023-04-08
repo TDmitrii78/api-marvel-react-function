@@ -53,13 +53,7 @@ const CharList = (props) => {
     }
 
     useEffect(() => {
-        const arrData = JSON.parse(localStorage.getItem("data"));
-        if ((localStorage.getItem("offset") && localStorage.getItem("data"))) {
-            setOffset(+localStorage.getItem("offset"));
-            setData(arrData.slice(0, arrData.length - 9))
-        } else {
             setOffset(startOffset);
-        };
     }, [])
 
     useEffect(() => {
@@ -67,11 +61,6 @@ const CharList = (props) => {
             getCharacter(offset);
         }
     }, [offset])
-
-    useEffect(() => {
-        localStorage.setItem("offset", offset);
-        localStorage.setItem("data", JSON.stringify(data));
-    }, [data, offset])
 
 
         const spiner = (load) ? <Spiner/> : null;
