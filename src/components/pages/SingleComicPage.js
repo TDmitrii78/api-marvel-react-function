@@ -65,7 +65,7 @@ const Content = (props) => {
 
     return (
         <>  
-            <img src={thumbnail.path + '.' + thumbnail.extension} alt="x-men" className="single-comic__img"/>
+            <img src={thumbnail.path + '.' + thumbnail.extension} alt={title} className="single-comic__img"/>
             <div className="single-comic__info">
                 <h2 className="single-comic__name">{title}</h2>
                 <p className="single-comic__descr">{description ? description : 'Not information.'}</p>
