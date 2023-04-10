@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Spiner from '../spiner/Spiner';
 import Error from '../error/Error';
 
@@ -9,7 +10,7 @@ import './comicsList.css';
 
 const ComicsList = () => {
     const [comics, setComics] = useState([]);
-    const [startOffset, setStartOffset] = useState(50);
+    const [startOffset, setStartOffset] = useState(0);
     const [offset, setOffset] = useState(null);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState(false);
@@ -48,10 +49,12 @@ const ComicsList = () => {
 
     useEffect(() => {
         setOffset(startOffset);
+        console.log("start");
     }, [])
 
     useEffect(() => {
         getAllComics(offset);
+        console.log('get');
     }, [offset])
 
     const onNextComics = () => {
@@ -78,6 +81,8 @@ const ComicsList = () => {
 
 const Content = (props) => {
     const {buttonOff, load, comics, onNextComics} = props;
+
+    console.log(comics);
     return (
         <>
             <ul className="comics__grid">
@@ -87,11 +92,11 @@ const Content = (props) => {
                             <li     
                                 key={i}
                                 className="comics__item">
-                                <a href="#">
+                                <Link to={`/comics/${el.id}`}>
                                     <img src={el.thumbnail.path + `.` + el.thumbnail.extension} alt="ultimate war" className="comics__item-img"/>
                                     <div className="comics__item-name">{el.title}</div>
-                                    <div className="comics__item-price">{el.prices[0].price}$</div>
-                                </a>
+                                    <div className="comics__item-price">{el.prices[0].price ? el.prices[0].price : `out of stock `}$</div>
+                                </Link>
                             </li>
                         )
                     })

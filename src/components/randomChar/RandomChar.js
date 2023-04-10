@@ -84,7 +84,7 @@ const RandomBlock = ({character}) => {
 
     const {thumbnail, name, homepage, Wiki, description} = character;
     let imageStyle = {"objectFit": "cover"};
-
+    console.log(thumbnail);
     if (thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg") {
         imageStyle = {"objectFit": "unset"};
     }
