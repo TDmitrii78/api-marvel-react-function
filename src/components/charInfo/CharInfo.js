@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -101,7 +102,12 @@ const Content = (props) => {
                 {
                     comics.map((el, i) => {
                         if (i < 9) {
-                            return <li className="char__comics-item" key={i}>{el.name}</li>
+                            let id = el.resourceURI.split('/').reverse()[0];
+                            return <li className="char__comics-item" key={i}>
+                                        <Link to={`/comics/${id}/`}>
+                                            {el.name}
+                                        </Link>
+                                    </li>
                         }
                         return null
                     })
