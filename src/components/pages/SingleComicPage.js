@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ServiceMarvel from '../../services/ServiceMarvel';
@@ -11,6 +11,7 @@ import './singleComicPage.css';
 
 const SingleComic = () => {
     const {comicsId} = useParams();
+    const navigate = useNavigate();
     const [comics, setComics] = useState(null);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState(false);
@@ -73,7 +74,7 @@ const Content = (props) => {
                 <p className="single-comic__descr">Language: {textObjects.length ? textObjects[0].language : 'not information'}</p>
                 <div className="single-comic__price">{prices[0].price ? prices[0].price : `out of stock `}$</div>
             </div>
-            <Link to='/comics/' className="single-comic__back">Back to all</Link>
+            <Link to={-1} className="single-comic__back">Back to all</Link>
        </>
     )
 }
