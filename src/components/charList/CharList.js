@@ -62,7 +62,6 @@ const CharList = (props) => {
         }
     }, [offset])
 
-
         const spiner = (load) ? <Spiner/> : null;
         const errorMes = (error) ? <Error/> : null;
         const content = true ? <Content 
@@ -107,7 +106,7 @@ const Content = (props) => {
         if (characterImg === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg") {
             imgStyle = {"objectFit": "unset"};
         }
-   
+        
         return (
             <li
                 ref={el => myRef.current[i] = el}

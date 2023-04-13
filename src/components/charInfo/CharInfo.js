@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -9,7 +9,6 @@ import Error from '../error/Error';
 import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.css';
-
 
 const CharInfo = (props) => {
 

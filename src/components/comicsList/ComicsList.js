@@ -49,12 +49,10 @@ const ComicsList = () => {
 
     useEffect(() => {
         setOffset(startOffset);
-        console.log("start");
     }, [])
 
     useEffect(() => {
         getAllComics(offset);
-        console.log('get');
     }, [offset])
 
     const onNextComics = () => {
@@ -82,7 +80,6 @@ const ComicsList = () => {
 const Content = (props) => {
     const {buttonOff, load, comics, onNextComics} = props;
 
-    console.log(comics);
     return (
         <>
             <ul className="comics__grid">

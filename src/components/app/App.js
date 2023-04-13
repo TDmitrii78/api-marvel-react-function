@@ -1,28 +1,32 @@
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { useState, lazy, Suspense } from "react";
 
-import AppHeader from "../appHeader/AppHeader";
 import ErrorBoundaries from "../errorBoundaries/ErrorBoundaries";
-import MainPage from "../pages/MainPage";
-import ComicsPage from "../pages/ComicsPages";
-import SingleComicPage from '../pages/SingleComicPage';
-import Page404 from "../pages/404";
+import AppHeader from '../appHeader/AppHeader';
+const MainPage = lazy(() => import("../pages/MainPage"));
+const ComicsPage = lazy(() => import("../pages/ComicsPages"));
+const SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
+const Page404 = lazy(() => import("../pages/404"));
 
 
 const App = () => {
+    const [reset, setReset] = useState(false);
 
     return (
         <Router>
             <div className="app">
                 <ErrorBoundaries>
-                    <AppHeader/>
+                        <AppHeader/>
                 </ErrorBoundaries>
                 <main>
-                    <Routes>
-                        <Route path="/" element={<MainPage/>}/>    
-                        <Route path="/comics" element={<ComicsPage/>}/>
-                        <Route path ='/Comics/:comicsId' element={<SingleComicPage/>}/>
-                        <Route path="*" element={<Page404/>}/>
-                    </Routes>
+                    <Suspense fallback={<span>Loading...</span>}>
+                        <Routes>
+                            <Route path="/" element={<MainPage/>}/>                    
+                            <Route path="/comics" element={<ComicsPage/>}/>
+                            <Route path ='/Comics/:comicsId' element={<SingleComicPage/>}/>
+                            <Route path="*" element={<Page404/>}/>
+                        </Routes>
+                    </Suspense>
                 </main>
             </div>
         </Router>

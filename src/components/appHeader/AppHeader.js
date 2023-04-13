@@ -1,7 +1,9 @@
-import './appHeader.css';
 import { Link, NavLink } from 'react-router-dom';
 
+import './appHeader.css';
+
 const AppHeader = () => {
+
     return (
         <header className="app__header">
             <h1 className="app__title">
