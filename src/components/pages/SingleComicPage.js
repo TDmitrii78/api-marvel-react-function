@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ServiceMarvel from '../../services/ServiceMarvel';
@@ -11,7 +11,6 @@ import './singleComicPage.css';
 
 const SingleComic = () => {
     const {comicsId} = useParams();
-    const navigate = useNavigate();
     const [comics, setComics] = useState(null);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState(false);

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import { useState, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 
 import ErrorBoundaries from "../errorBoundaries/ErrorBoundaries";
 import AppHeader from '../appHeader/AppHeader';
@@ -10,7 +10,6 @@ const Page404 = lazy(() => import("../pages/404"));
 
 
 const App = () => {
-    const [reset, setReset] = useState(false);
 
     return (
         <Router>

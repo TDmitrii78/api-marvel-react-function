@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
+
 import PropTypes from 'prop-types';
 
 import Spiner from '../spiner/Spiner';
@@ -7,7 +9,6 @@ import Error from '../error/Error';
 import ServiceMarvel from '../../services/ServiceMarvel';
 
 import './charList.css';
-
 
 const CharList = (props) => {
 
@@ -108,28 +109,30 @@ const Content = (props) => {
         }
         
         return (
-            <li
-                ref={el => myRef.current[i] = el}
-                key={el.id} 
-                className='char__item'
-                tabIndex={"0"}
-                onClick={() => {onClickCharacter(el.id, i)}}
-                onKeyDown={(e => (e.key === 'Enter') ? onClickCharacter(el.id, i) : null)}
-            >
-                <img src={characterImg} 
-                    style={imgStyle}
-                       alt="character foto"/>
-                <div className="char__name">{el.name}</div>
-            </li>
+            <CSSTransition key={el.id} timeout={500} classNames="char__item">
+                <li
+                    ref={el => myRef.current[i] = el}
+                    key={el.id} 
+                    className='char__item'
+                    tabIndex={"0"}
+                    onClick={() => {onClickCharacter(el.id, i)}}
+                    onKeyDown={(e => (e.key === 'Enter') ? onClickCharacter(el.id, i) : null)}
+                >
+                    <img src={characterImg} 
+                        style={imgStyle}
+                        alt="character foto"/>
+                    <div className="char__name">{el.name}</div>
+                </li>
+            </CSSTransition>
         )
     });
-
-    
 
     return (
         <>
             <ul className="char__grid">
-                {character}
+                <TransitionGroup component={null}>
+                    {character}
+                </TransitionGroup>
             </ul>
             <button style={((load || buttonOff) ? {"display" : "none"} : {"display": "block"})}
                 onClick={onNextCharacter}
