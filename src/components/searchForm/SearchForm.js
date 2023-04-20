@@ -31,7 +31,6 @@ const SearchForm = () => {
 
     const getCharacterForName = (name) => {
         loadSrv();
-        console.log(name);
         serviceMarvel.getRequestCharacterForName(name)
             .then((res) => {
                 loadOk();
@@ -43,7 +42,7 @@ const SearchForm = () => {
     const resoult = (data === null) ? null :  data.length ?
         <div className="char__search-wrapper">
             <div className="char__search-success">There is! Visit {data[0].name} page?</div>
-            <Link to={`/Character/${data[0].name}`} className="button button__secondary">
+            <Link to={`/character/${data[0].name}`} className="button button__secondary">
                 <div className="inner">To page</div>
             </Link>
         </div> : <div className="char__search-error"> нет такого персонажа </div> ;

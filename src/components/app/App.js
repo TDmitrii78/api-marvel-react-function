@@ -6,6 +6,7 @@ import AppHeader from '../appHeader/AppHeader';
 const MainPage = lazy(() => import("../pages/MainPage"));
 const ComicsPage = lazy(() => import("../pages/ComicsPages"));
 const SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
+const SinglePage = lazy(() => import('../pages/SinglePage'));
 const Page404 = lazy(() => import("../pages/404"));
 
 
@@ -21,9 +22,9 @@ const App = () => {
                     <Suspense fallback={<span>Loading...</span>}>
                         <Routes>
                             <Route path="/" element={<MainPage/>}/>   
-                            <Route path ='/Character/:characterName' element={<SingleComicPage/>}/>                 
+                            <Route path ='/character/:characterName' element={<SinglePage page={'character'}/>}/>                 
                             <Route path="/comics" element={<ComicsPage/>}/>
-                            <Route path ='/Comics/:comicsId' element={<SingleComicPage/>}/>
+                            <Route path ='/comics/:comicsId' element={<SinglePage page={'comics'}/>}/>
                             <Route path="*" element={<Page404/>}/>
                         </Routes>
                     </Suspense>
