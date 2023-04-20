@@ -27,6 +27,10 @@ class ServiceMarvel {
         .then(res => this.transform(res));
     }
 
+    getRequestCharacterForName = (name) => {
+        return this.getResourse(`${this._baseApi}/v1/public/characters?name=${name}&${this._apiKey}`);
+    }
+
     transform = (res) => {
         return {
             thumbnail: `${res.data.results[0].thumbnail.path}.${res.data.results[0].thumbnail.extension}`,

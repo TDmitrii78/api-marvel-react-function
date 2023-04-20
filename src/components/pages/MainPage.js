@@ -4,6 +4,7 @@ import ErrorBoundaries from "../errorBoundaries/ErrorBoundaries";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import SearchForm from "../searchForm/SearchForm";
 
 import decoration from '../../resources/img/vision.png';
 
@@ -24,7 +25,10 @@ const MainPage = (props) => {
                     <CharList onClickCharacter={(id) => onClickCharacter(id)}/>
                 </ErrorBoundaries>
                 <ErrorBoundaries>
-                    <CharInfo id={id}/>     
+                    <div>
+                        <CharInfo id={id}/>
+                        <SearchForm/> 
+                    </div>    
                 </ErrorBoundaries>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
